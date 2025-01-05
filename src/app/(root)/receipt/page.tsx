@@ -4,18 +4,19 @@ import { CHARGES } from "@/constants";
 import { useAppStore } from "@/constants/store";
 import { formatAmount } from "@/lib/utils";
 import { CheckCircle2, Send, Share2Icon } from "lucide-react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const ReceiptPage = () => {
     const searchParams = useSearchParams();
     const id = searchParams.get("id");
     const { transactions } = useAppStore();
+    const router = useRouter();
 
     const transaction = transactions.filter((transact) => transact.id === id);
 
     return (
         <div className=" flex items-center justify-center mt-10">
-            <Card className=" flex items-center justify-center p-2 flex-col mx-10">
+            <Card className=" flex items-center justify-center  flex-col mx-5">
                 <CardHeader>
                     <CheckCircle2 className=" size-20 text-emerald-700" />
                 </CardHeader>
@@ -34,7 +35,9 @@ const ReceiptPage = () => {
                             <p className=" text-blue-600 text-sm">Share Receipt</p>
                         </div>
 
-                        <div className=" border rounded-lg flex flex-col items-center justify-center px-5 py-2 gap-y-1">
+                        <div
+                            onClick={() => router.push("/payment-transfer")}
+                            className=" border rounded-lg flex flex-col items-center justify-center px-5 py-2 gap-y-1">
                             <Send className=" size-10 text-emerald-800" />
                             <p className=" text-blue-600 text-sm">Make Transfer</p>
                         </div>

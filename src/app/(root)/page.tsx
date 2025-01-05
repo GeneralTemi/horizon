@@ -50,7 +50,7 @@ const Home = () => {
 
         <div className=' flex items-center md:justify-start justify-center gap-x-2 '>
 
-          <div className=' flex items-center justify-center text-xl font-bold rounded-full bg-[#4893FF] text-white p-3 px-5 border-2 border-blue-600'>
+          <div className=' flex items-center justify-center text-sm md:text-xl font-bold rounded-full bg-[#4893FF] text-white p-2 md:p-3 px-5 border-2 border-blue-600'>
             <Link href="/payment-transfer" className='flex items-center justify-center'>
               <ArrowBigRightDash className=' size-8 mr-1 text-white' />
               Transfer
@@ -58,7 +58,7 @@ const Home = () => {
 
 
           </div>
-          <div className=' flex items-center justify-center text-lg font-bold rounded-full bg-[#4893FF] text-white p-3 border-2 border-blue-600'>
+          <div className=' flex items-center justify-center text-sm md:text-lg font-bold rounded-full bg-[#4893FF] text-white p-2 md:p-3 border-2 border-blue-600'>
             <Link href="/transaction-history" className='flex items-center justify-center'>
               <PlusCircle className=' size-8 mr-1 text-white' />
               Transactions

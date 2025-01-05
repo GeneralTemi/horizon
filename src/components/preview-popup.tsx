@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { useAppStore } from '@/constants/store'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import useModalStore from '@/hooks/use-modal-store'
 
 
 
@@ -20,6 +21,7 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
     const [isPending, setIsPending] = useState(false)
     const { accounts, transactionLimit, updateAccountBalance, addTransaction, incrementTransactionLimit } = useAppStore();
     const router = useRouter();
+    const { closeModal } = useModalStore();
 
 
     const recipientDetails = BENEFICIARIES.filter((recipient) => recipient.id === beneficiary);
@@ -62,7 +64,10 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
 
         // Add delay of 10 seconds (10,000 milliseconds) before navigating
         setTimeout(() => {
-            setIsPending(false); // Update state after delay
+            closeModal();
+            setPin(false);
+            setIsPending(false);
+            // Update state after delay
             router.push(`/receipt?id=${newTransaction.id}`); // Navigate to the receipt page
         }, 5000);
     };
