@@ -413,7 +413,7 @@
   }
 
   .footer_name {
-    @apply flex size-10 items-center justify-center rounded-full bg-gray-200 max-xl:hidden;
+    @apply hidden size-10 items-center justify-center rounded-full bg-gray-200 max-xl:hidden;
   }
 
   .footer_email {
@@ -421,7 +421,7 @@
   }
 
   .footer_name-mobile {
-    @apply flex size-10 items-center justify-center rounded-full bg-gray-200;
+    @apply hidden size-10 items-center justify-center rounded-full bg-gray-200;
   }
 
   .footer_email-mobile {
