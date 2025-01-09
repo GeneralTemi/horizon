@@ -32,6 +32,8 @@ const AuthForm = ({ type }: { type: string }) => {
 
 
 
+
+
   const formSchema = authFormSchema(type);
 
   // 1. Define your form.
@@ -45,32 +47,29 @@ const AuthForm = ({ type }: { type: string }) => {
 
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+
     setIsLoading(true);
 
-    try {
-      // Sign up with Appwrite & create plaid token
+    const email = data.email;
+    const password = data.password;
+    if (email !== LOGIN.username || password !== LOGIN.password) {
+      setTimeout(() => {
+        setIsLoading(false);
+        toast.error("Invalid login details")
 
-
-
-      if (type === 'sign-in') {
-        const email = data.email;
-        const password = data.password;
-        if (email !== LOGIN.username || password !== LOGIN.password) {
-          toast.error("Invalid login details")
-          return null;
-        }
-
-
-        toggleAuthentication(true);
-        toast.success("Logged in Successfully")
-
-        router.push("/")
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+      }, 5000);
+      return null;
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+      toast.success("Logged in Successfully")
+      // Update state after delay
+      router.push("/account");
+      // Navigate to the receipt page
+    }, 5000);
+
+    toggleAuthentication(true);
   }
 
   return (

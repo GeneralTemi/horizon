@@ -199,7 +199,7 @@
   }
 
   .total-balance-label {
-    @apply text-14 font-medium text-gray-600;
+    @apply text-sm font-medium text-white;
   }
 
   .total-balance-amount {
@@ -442,11 +442,11 @@
   }
 
   .sidebar-link {
-    @apply flex gap-3 items-center py-1 md:p-3 2xl:p-4 rounded-lg justify-center xl:justify-start;
+    @apply flex gap-3 items-center py-1 p-4 2xl:p-4 rounded-lg  justify-start;
   }
 
   .sidebar-label {
-    @apply text-16 font-semibold text-black-2 max-xl:hidden;
+    @apply text-16 font-semibold text-black-2 ;
   }
 }
 

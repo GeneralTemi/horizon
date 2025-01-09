@@ -51,10 +51,13 @@ declare type Transaction = {
   id: string;
   type: string;
   amount: number;
+  accountName: string;
   pending: boolean;
   date: Date;
   receiverName: string;
   receiverBank: string;
+  availableBalance: number;
+  transactionId: string;
   note?: string;
 };
 
@@ -147,7 +150,7 @@ declare interface PaginationProps {
 declare interface PreviewTransfer {
   amount: string;
   beneficiary: string;
-  name: string;
+  name?: string;
   senderBank: string;
 }
 
@@ -185,7 +188,6 @@ declare interface BankTabItemProps {
 declare interface TotalBalanceBoxProps {
   accounts: Account[];
   totalBanks: number;
-  totalCurrentBalance: number;
 }
 
 declare interface FooterProps {

@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface ModalData {
   amount: string;
   beneficiary: string;
-  name: string;
+  name?: string;
   senderBank: string;
 }
 

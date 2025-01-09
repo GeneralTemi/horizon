@@ -21,13 +21,13 @@ import { BENEFICIARIES } from "@/constants";
 import AmountInput from "./amount-input";
 import useModalStore from "@/hooks/use-modal-store";
 import { PreviewModal } from "./preview-modal";
+import { formatAmount } from "@/lib/utils";
 
 const formSchema = z.object({
   beneficiary: z.string().min(1, "Beneficiary required"),
-  name: z.string().min(4, "Transfer note is too short"),
+  name: z.string().optional(),
   amount: z.string().min(4, "Amount is too short"),
   senderBank: z.string().min(4, "Please select a valid bank account"),
-  // sharableId: z.string().min(8, "Please select a valid sharable Id"),
 });
 
 const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
@@ -69,11 +69,11 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
               <FormItem className="border-t border-gray-200">
                 <div className="payment-transfer_form-item pb-6 pt-5">
                   <div className="payment-transfer_form-content">
-                    <FormLabel className="text-14 font-medium text-gray-700">
-                      Select Source Bank
+                    <FormLabel className=" text-lg font-bold text-gray-700">
+                      From
                     </FormLabel>
                     <FormDescription className="text-12 font-normal text-gray-600">
-                      Select the bank account you want to transfer funds from
+                      Select Source Bank
                     </FormDescription>
                   </div>
                   <div className="flex w-full flex-col">
@@ -84,7 +84,16 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={accounts[0].accountName}>{accounts[0].accountName}</SelectItem>
+                        {
+                          accounts.map((account) => (
+                            <SelectItem key={account.id} value={`${account.accountName}-${formatAmount(account.availableBalance)}`}>
+                              {`${account.accountName}-${formatAmount(account.availableBalance)}`}
+
+
+                            </SelectItem>
+                          ))
+                        }
+
                       </SelectContent>
                     </Select>
                     <FormMessage className="text-12 text-red-500" />
@@ -94,42 +103,14 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem className="border-t border-gray-200">
-                <div className="payment-transfer_form-item pb-6 pt-5">
-                  <div className="payment-transfer_form-content">
-                    <FormLabel className="text-14 font-medium text-gray-700">
-                      Transfer Note (Optional)
-                    </FormLabel>
-                    <FormDescription className="text-12 font-normal text-gray-600">
-                      Please provide any additional information or instructions
-                      related to the transfer
-                    </FormDescription>
-                  </div>
-                  <div className="flex w-full flex-col">
-                    <FormControl>
-                      <Textarea
-                        placeholder="Write a short note here"
-                        className="input-class"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="text-12 text-red-500" />
-                  </div>
-                </div>
-              </FormItem>
-            )}
-          />
+
 
           <div className="payment-transfer_form-details">
             <h2 className="text-18 font-semibold text-gray-900">
-              Bank account details
+              To
             </h2>
             <p className="text-16 font-normal text-gray-600">
-              Enter the bank account details of the recipient
+              Enter recipient details
             </p>
           </div>
 
@@ -204,6 +185,37 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
                         disabled={false}
                         placeholder="0.00"
 
+                      />
+                    </FormControl>
+                    <FormMessage className="text-12 text-red-500" />
+                  </div>
+                </div>
+              </FormItem>
+            )}
+          />
+
+
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="border-t border-gray-200">
+                <div className="payment-transfer_form-item pb-6 pt-5">
+                  <div className="payment-transfer_form-content">
+                    <FormLabel className="text-14 font-medium text-gray-700">
+                      Transfer Note (Optional)
+                    </FormLabel>
+                    <FormDescription className="text-12 font-normal text-gray-600">
+                      Please provide any additional information or instructions
+                      related to the transfer
+                    </FormDescription>
+                  </div>
+                  <div className="flex w-full flex-col">
+                    <FormControl>
+                      <Textarea
+                        placeholder="Write a short note here"
+                        className="input-class"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage className="text-12 text-red-500" />

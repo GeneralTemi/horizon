@@ -6,33 +6,33 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { transactionCategoryStyles } from "@/constants"
-import { cn, formatAmount, formatDateTime, removeSpecialCharacters } from "@/lib/utils"
 
-const CategoryBadge = ({ category }: CategoryBadgeProps) => {
-  const {
-    borderColor,
-    backgroundColor,
-    textColor,
-    chipBackgroundColor,
-  } = transactionCategoryStyles[category as keyof typeof transactionCategoryStyles] || transactionCategoryStyles.default
+import { formatAmount, formatDateTime } from "@/lib/utils"
 
-  return (
-    <div className={cn('category-badge', borderColor, chipBackgroundColor)}>
-      <div className={cn('size-2 rounded-full', backgroundColor)} />
-      <p className={cn('text-[12px] font-medium', textColor)}>{category}</p>
-    </div>
-  )
-}
+// const CategoryBadge = ({ category }: CategoryBadgeProps) => {
+//   const {
+//     borderColor,
+//     backgroundColor,
+//     textColor,
+//     chipBackgroundColor,
+//   } = transactionCategoryStyles[category as keyof typeof transactionCategoryStyles] || transactionCategoryStyles.default
+
+//   return (
+//     <div className={cn('category-badge', borderColor, chipBackgroundColor)}>
+//       <div className={cn('size-2 rounded-full', backgroundColor)} />
+//       <p className={cn('text-[12px] font-medium', textColor)}>{category}</p>
+//     </div>
+//   )
+// }
 
 const TransactionsTable = ({ transactions }: TransactionTableProps) => {
   return (
     <Table>
       <TableHeader className="bg-[#f9fafb]">
         <TableRow>
-          <TableHead className="px-2">Transaction</TableHead>
+          <TableHead className="px-2">Account</TableHead>
           <TableHead className="px-2">Amount</TableHead>
-          <TableHead className="px-2">Status</TableHead>
+          {/* <TableHead className="px-2">Status</TableHead> */}
           <TableHead className="px-2">Date</TableHead>
           <TableHead className="px-2 ">Recipient</TableHead>
           {/* <TableHead className="px-2 max-md:hidden">Category</TableHead> */}
@@ -50,21 +50,23 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
               <TableCell className="max-w-[250px] pl-2 pr-10">
                 <div className="flex items-center gap-3">
                   <h1 className="text-14 truncate font-semibold text-[#344054]">
-                    {removeSpecialCharacters(t.type)}
+                    {t.accountName}
                   </h1>
                 </div>
               </TableCell>
 
-              <TableCell className={`pl-2 pr-10 font-semibold ${isDebit || amount[0] === '-' ?
+              <TableCell className={`pl-2 flex flex-col pr-10 font-semibold ${isDebit || amount[0] === '-' ?
                 'text-[#f04438]'
                 : 'text-[#039855]'
                 }`}>
-                {isDebit ? `-${amount}` : isCredit ? amount : amount}
+                <p> {isDebit ? `-${amount}` : isCredit ? amount : amount}</p>
+                <p className=" text-blue-600">{formatAmount(t.availableBalance)}</p>
+
               </TableCell>
 
-              <TableCell className="pl-2 pr-10">
+              {/* <TableCell className="pl-2 pr-10">
                 <CategoryBadge category="approved" />
-              </TableCell>
+              </TableCell> */}
 
               <TableCell className="min-w-32 pl-2 pr-10">
                 {formatDateTime(new Date(t.date)).dateTime}

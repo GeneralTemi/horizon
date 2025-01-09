@@ -1,9 +1,9 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { cn, formatAmount } from '@/lib/utils'
-import { BENEFICIARIES, CHARGES, generateRandomId, MYPIN } from '@/constants'
+import { BENEFICIARIES, CHARGES, formatDateToString, generateRandomId, generateTransactionId, MYPIN } from '@/constants'
 import { Separator } from './ui/separator'
-import { Check, LoaderIcon, Wallet2Icon } from 'lucide-react'
+import { LoaderIcon } from 'lucide-react'
 import { Button } from './ui/button'
 import VerificationInput from "react-verification-input"
 import { useState } from 'react'
@@ -11,6 +11,7 @@ import { useAppStore } from '@/constants/store'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import useModalStore from '@/hooks/use-modal-store'
+
 
 
 
@@ -23,9 +24,17 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
     const router = useRouter();
     const { closeModal } = useModalStore();
 
+    const transactionId = generateTransactionId();
+    const accountName = senderBank.split("-")[0];
+    const currentDate = new Date();
+
+
+    const selectedAccount = accounts.filter((account) => account.accountName.includes(accountName));
+
+
 
     const recipientDetails = BENEFICIARIES.filter((recipient) => recipient.id === beneficiary);
-    const isPayable = accounts[0].availableBalance > (Number(amount) + CHARGES);
+    const isPayable = selectedAccount[0].availableBalance > (Number(amount) + CHARGES);
 
     const isDisabled = !isPayable;
 
@@ -39,12 +48,21 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
         }
 
         if (transactionLimit > 0) {
-            toast.error("Transfer Blocked! Contact support");
+            toast.error("Account Locked", {
+                description: "New Location Detected",
+                action: {
+                    label: "Contact Support",
+                    onClick: () => { },
+                },
+            })
             setIsPending(false);
             return;
         }
 
-        updateAccountBalance(accounts[0].id, accounts[0].availableBalance - (Number(amount) + CHARGES));
+        const newBalance = selectedAccount[0].availableBalance - (Number(amount) + CHARGES);
+
+        updateAccountBalance(selectedAccount[0].id, newBalance);
+
 
         const randomId = generateRandomId(10);
 
@@ -52,10 +70,13 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
             id: randomId,
             type: "debit",
             amount: Number(amount) + CHARGES,
-            date: new Date(),
+            date: currentDate,
             receiverName: recipientDetails[0].name,
             pending: false,
             receiverBank: recipientDetails[0].bank,
+            availableBalance: newBalance,
+            transactionId: transactionId,
+            accountName: accountName,
             Note: "",
         };
 
@@ -84,8 +105,8 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
                 <CardHeader className=' flex items-center justify-center'>
                     <CardTitle>
                         {
-                            isPending ? ("Transaction in progress..") : (
-                                "Input Transaction Pin"
+                            isPending ? ("Transfer in progress..") : (
+                                "Input Transfer Pin"
                             )
                         }
                     </CardTitle>
@@ -121,27 +142,31 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
     return (
         <Card className='w-full h-full border-none shadow-none bg-[#F5F5F5]'>
             <CardHeader className=' flex items-center justify-center text-2xl font-bold'>
-                <CardTitle>{formatAmount(Number(amount) + CHARGES)}</CardTitle>
+                {/* <CardTitle>{formatAmount(Number(amount) + CHARGES)}</CardTitle> */}
             </CardHeader>
             <CardContent>
-                <div className='grid grid-cols-2 justify-between'>
-                    <div>
-                        <p>Bank</p>
-                        <p>Account Number</p>
-                        <p>Name</p>
-                        <p>Amount</p>
-                        <p>Transaction Fee</p>
+                <div className='grid grid-cols-2 justify-between '>
+                    <div className=' space-y-3'>
+                        <p className=' font-bold'>Confirmation Number</p>
+                        <p className=' font-bold'>From</p>
+                        <p className=' font-bold'>To</p>
+                        <p className=' font-bold'>Amount</p>
+                        <p className=' font-bold'>Transaction Fee</p>
+                        <p className=' font-bold'>Transaction date</p>
+                        <p className=' font-bold'>Arrival date</p>
                     </div>
-                    <div className=' text-end'>
-                        <p>{recipientDetails[0].bank}</p>
-                        <p>{recipientDetails[0].accountNumber}</p>
-                        <p>{recipientDetails[0].name}</p>
-                        <p>{formatAmount(Number(amount))}</p>
-                        <p>{formatAmount(CHARGES)}</p>
+                    <div className=' text-end space-y-3'>
+                        <p className=' font-semibold'>{transactionId}</p>
+                        <p className=' font-semibold'>{senderBank}</p>
+                        <p className=' text-sm truncate font-semibold'>{`${recipientDetails[0].name}-${recipientDetails[0].accountNumber}`}</p>
+                        <p className=' font-semibold'>{formatAmount(Number(amount))}</p>
+                        <p className=' font-semibold'>{formatAmount(CHARGES)}</p>
+                        <p className=' font-semibold'>{formatDateToString(currentDate)}</p>
+                        <p className=' font-semibold'>{formatDateToString(currentDate)}</p>
                     </div>
                 </div>
                 <Separator orientation='horizontal' className='my-4' />
-                <div className=' flex items-center justify-between border rounded-2xl shadow-md  p-3 bg-slate-300'>
+                {/* <div className=' flex items-center justify-between border rounded-2xl shadow-md  p-3 bg-slate-300'>
                     <div className=' flex items-center justify-center gap-x-2'>
                         <Wallet2Icon className=' size-8 mr-3' />
                         <p className=' text-lg'>{senderBank}</p> <span> {formatAmount(Number(accounts[0].availableBalance))}</span>
@@ -152,11 +177,11 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
                         }
 
                     </div>
-                </div>
+                </div> */}
                 <div className=' w-full items-center justify-center mt-4'>
                     <Button size="lg" className='w-full rounded-full  py-5 bg-[#4893FF] hover:bg-[#4893FF] text-lg' onClick={requestPin} disabled={isDisabled}>
                         {
-                            isDisabled ? ("Amount exceed your balance") : ("Pay")
+                            isDisabled ? ("Amount exceed your balance") : ("Make Transfer")
                         }
                     </Button>
                 </div>

@@ -1,5 +1,7 @@
+"use client";
 import { create } from "zustand";
 
+// Uncomment your interfaces if needed
 // interface Account {
 //   id: string;
 //   availableBalance: number;
@@ -30,57 +32,87 @@ interface AppState {
   loadFromLocalStorage: () => void;
 }
 
-export const useAppStore = create<AppState>((set) => ({
-  accounts: JSON.parse(localStorage.getItem("accounts") || "[]"),
-  transactions: JSON.parse(localStorage.getItem("transactions") || "[]"),
-  transactionLimit: Number(localStorage.getItem("transactionLimit") || 0),
-  isAuthenticated: JSON.parse(
-    localStorage.getItem("isAuthenticated") || "false"
-  ),
+export const useAppStore = create<AppState>((set) => {
+  const isClient = typeof window !== "undefined";
 
-  updateAccountBalance: (id, newBalance) => {
-    set((state) => {
-      const updatedAccounts = state.accounts.map((account) =>
-        account.id === id
-          ? { ...account, availableBalance: newBalance }
-          : account
-      );
-      localStorage.setItem("accounts", JSON.stringify(updatedAccounts));
-      return { accounts: updatedAccounts };
-    });
-  },
+  const getInitialAccounts = () =>
+    isClient ? JSON.parse(localStorage.getItem("accounts") || "[]") : [];
+  const getInitialTransactions = () =>
+    isClient ? JSON.parse(localStorage.getItem("transactions") || "[]") : [];
+  const getInitialTransactionLimit = () =>
+    isClient ? Number(localStorage.getItem("transactionLimit") || 0) : 0;
+  const getInitialAuthentication = () =>
+    isClient
+      ? JSON.parse(localStorage.getItem("isAuthenticated") || "false")
+      : false;
 
-  addTransaction: (transaction) => {
-    set((state) => {
-      const updatedTransactions = [...state.transactions, transaction];
-      localStorage.setItem("transactions", JSON.stringify(updatedTransactions));
-      return { transactions: updatedTransactions };
-    });
-  },
+  return {
+    accounts: getInitialAccounts(),
+    transactions: getInitialTransactions(),
+    transactionLimit: getInitialTransactionLimit(),
+    isAuthenticated: getInitialAuthentication(),
 
-  incrementTransactionLimit: (value) => {
-    set((state) => {
-      const updatedLimit = state.transactionLimit + value;
-      localStorage.setItem("transactionLimit", updatedLimit.toString());
-      return { transactionLimit: updatedLimit };
-    });
-  },
+    updateAccountBalance: (id, newBalance) => {
+      set((state) => {
+        const updatedAccounts = state.accounts.map((account) =>
+          account.id === id
+            ? { ...account, availableBalance: newBalance }
+            : account
+        );
+        if (isClient) {
+          localStorage.setItem("accounts", JSON.stringify(updatedAccounts));
+        }
+        return { accounts: updatedAccounts };
+      });
+    },
 
-  toggleAuthentication: (value) => {
-    set(() => {
-      localStorage.setItem("isAuthenticated", JSON.stringify(value));
-      return { isAuthenticated: value };
-    });
-  },
+    addTransaction: (transaction) => {
+      set((state) => {
+        const updatedTransactions = [...state.transactions, transaction];
+        if (isClient) {
+          localStorage.setItem(
+            "transactions",
+            JSON.stringify(updatedTransactions)
+          );
+        }
+        return { transactions: updatedTransactions };
+      });
+    },
 
-  loadFromLocalStorage: () => {
-    set({
-      accounts: JSON.parse(localStorage.getItem("accounts") || "[]"),
-      transactions: JSON.parse(localStorage.getItem("transactions") || "[]"),
-      transactionLimit: Number(localStorage.getItem("transactionLimit") || 0),
-      isAuthenticated: JSON.parse(
-        localStorage.getItem("isAuthenticated") || "false"
-      ),
-    });
-  },
-}));
+    incrementTransactionLimit: (value) => {
+      set((state) => {
+        const updatedLimit = state.transactionLimit + value;
+        if (isClient) {
+          localStorage.setItem("transactionLimit", updatedLimit.toString());
+        }
+        return { transactionLimit: updatedLimit };
+      });
+    },
+
+    toggleAuthentication: (value) => {
+      set(() => {
+        if (isClient) {
+          localStorage.setItem("isAuthenticated", JSON.stringify(value));
+        }
+        return { isAuthenticated: value };
+      });
+    },
+
+    loadFromLocalStorage: () => {
+      if (isClient) {
+        set({
+          accounts: JSON.parse(localStorage.getItem("accounts") || "[]"),
+          transactions: JSON.parse(
+            localStorage.getItem("transactions") || "[]"
+          ),
+          transactionLimit: Number(
+            localStorage.getItem("transactionLimit") || 0
+          ),
+          isAuthenticated: JSON.parse(
+            localStorage.getItem("isAuthenticated") || "false"
+          ),
+        });
+      }
+    },
+  };
+});

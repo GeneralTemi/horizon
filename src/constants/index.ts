@@ -1,23 +1,41 @@
+import { format } from "date-fns";
+
 export const sidebarLinks = [
   {
-    imgURL: "/icons/home.svg",
-    route: "/",
-    label: "Home",
+    imgURL: "/icons/dollar-circle.svg",
+    route: "/account",
+    label: "Accounts",
   },
-  // {
-  //   imgURL: "/icons/dollar-circle.svg",
-  //   route: "/my-banks",
-  //   label: "My Banks",
-  // },
   {
     imgURL: "/icons/transaction.svg",
     route: "/transaction-history",
-    label: "Transaction History",
+    label: "Transactions",
   },
   {
-    imgURL: "/icons/money-send.svg",
+    imgURL: "/icons/dollar-circle.svg",
     route: "/payment-transfer",
-    label: "Transfer Funds",
+    label: "Tranfers",
+  },
+
+  {
+    imgURL: "/icons/profile.png",
+    route: "#",
+    label: "Profile",
+  },
+  {
+    imgURL: "/icons/support.png",
+    route: "#",
+    label: "Support",
+  },
+  {
+    imgURL: "/icons/messages.png",
+    route: "#",
+    label: "Messages",
+  },
+  {
+    imgURL: "/icons/settings.png",
+    route: "#",
+    label: "Settings",
   },
 ];
 
@@ -98,10 +116,20 @@ export function generateRandomId(length: number): string {
   return result;
 }
 
+export function formatDateToString(date: Date): string {
+  return format(date, "yyyy-MM-dd HH:mm:ss");
+}
+
+export function generateTransactionId(): string {
+  const timestamp = Date.now().toString(36); // Convert current timestamp to base 36
+  const randomString = Math.random().toString(36).substring(2, 10); // Generate a random string
+  return `${timestamp}-${randomString}`;
+}
+
 // good_user / good_password - Bank of America
 export const TEST_USER_ID = "6627ed3d00267aa6fa3e";
 
-export const CHARGES = 50;
+export const CHARGES = 30;
 export const MYPIN = "1234";
 
 // custom_user -> Chase Bank

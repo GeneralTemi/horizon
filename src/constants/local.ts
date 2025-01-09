@@ -5,9 +5,15 @@ export const initializeLocalStorage = () => {
       JSON.stringify([
         {
           id: "1",
-          availableBalance: 20000,
+          availableBalance: 28000,
           officialName: "Angel Don",
-          accountName: "Don Savings",
+          accountName: "Savings",
+        },
+        {
+          id: "2",
+          availableBalance: 28000,
+          officialName: "Angel Don",
+          accountName: "Adv Checking",
         },
       ])
     );
@@ -23,21 +29,27 @@ export const initializeLocalStorage = () => {
         {
           id: "1",
           type: "debit",
+          accountName: "savings",
           amount: 2000,
           date: "10/12/2024",
           receiverName: "thomas",
           pending: false,
           receiverBank: "PHB",
+          availableBalance: 30100,
+          transactionId: "887983938983uhsh",
           Note: "bills",
         },
         {
           id: "2",
           type: "debit",
+          accountName: "Adv Checking",
           amount: 2000,
           date: "10/12/2024",
           receiverName: "thomas",
           pending: false,
           receiverBank: "PHB",
+          transactionId: "887983944383uhsh",
+          availableBalance: 30100,
           Note: "bills",
         },
       ])

@@ -10,11 +10,11 @@ export default function RootLayout({
       {children}
       <div className="auth-asset">
         <div>
-          <Image 
-            src="/icons/auth-image.svg"
+          <Image
+            src="https://www.floridacapitalbank.com/wp-content/uploads/2021/02/img_home_0000_GettyImages-1187832715_2.jpg"
             alt="Auth image"
-            width={500}
-            height={500}
+            width={800}
+            height={800}
             className="rounded-l-xl object-contain"
           />
         </div>
