@@ -22,7 +22,7 @@ const ReceiptPage = () => {
                 <p className="text-white">Transfer Successfull</p>
             </div>
             <div className=" flex items-center justify-center mt-10 mb-5 w-full">
-                <Card className=" w-full mx-10 xl:mx-72">
+                <Card className=" w-full mx-2 xl:mx-72">
                     <CardHeader>
                         <CardTitle className=" text-blue-600">
                             FLC Bank
@@ -76,7 +76,9 @@ const ReceiptPage = () => {
 
 
                         <div className=" flex items-center justify-center  mt-4">
-                            <Button className=" border rounded-lg  bg-blue-800 text-white">
+                            <Button
+                                onClick={() => window.print()}
+                                className=" border rounded-lg  bg-blue-800 text-white">
                                 <Share2Icon className=" size-10  mr-3" />
                                 <p className="  text-sm">Share Receipt</p>
                             </Button>

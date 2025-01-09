@@ -147,7 +147,7 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
             <CardContent>
                 <div className='grid grid-cols-2 justify-between '>
                     <div className=' space-y-3'>
-                        <p className=' font-bold'>Confirmation Number</p>
+                        <p className=' font-bold truncate'>Confirmation id</p>
                         <p className=' font-bold'>From</p>
                         <p className=' font-bold'>To</p>
                         <p className=' font-bold'>Amount</p>
@@ -159,10 +159,10 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
                         <p className=' font-semibold'>{transactionId}</p>
                         <p className=' font-semibold'>{senderBank}</p>
                         <p className=' text-sm truncate font-semibold'>{`${recipientDetails[0].name}-${recipientDetails[0].accountNumber}`}</p>
-                        <p className=' font-semibold'>{formatAmount(Number(amount))}</p>
-                        <p className=' font-semibold'>{formatAmount(CHARGES)}</p>
-                        <p className=' font-semibold'>{formatDateToString(currentDate)}</p>
-                        <p className=' font-semibold'>{formatDateToString(currentDate)}</p>
+                        <p className=' font-semibold truncate'>{formatAmount(Number(amount))}</p>
+                        <p className=' font-semibold truncate'>{formatAmount(CHARGES)}</p>
+                        <p className=' font-semibold truncate' >{formatDateToString(currentDate)}</p>
+                        <p className=' font-semibold truncate'>{formatDateToString(currentDate)}</p>
                     </div>
                 </div>
                 <Separator orientation='horizontal' className='my-4' />
