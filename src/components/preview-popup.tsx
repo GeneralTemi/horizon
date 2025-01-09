@@ -55,6 +55,8 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
                     onClick: () => { },
                 },
             })
+            closeModal();
+            setPin(false);
             setIsPending(false);
             return;
         }
@@ -147,18 +149,20 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
             <CardContent>
                 <div className='grid grid-cols-2 justify-between '>
                     <div className=' space-y-3'>
-                        <p className=' font-bold truncate'>Confirmation id</p>
+
                         <p className=' font-bold'>From</p>
                         <p className=' font-bold'>To</p>
+                        <p className=' font-bold truncate'>Transfer Id</p>
                         <p className=' font-bold'>Amount</p>
                         <p className=' font-bold'>Transaction Fee</p>
                         <p className=' font-bold'>Transaction date</p>
                         <p className=' font-bold'>Arrival date</p>
                     </div>
                     <div className=' text-end space-y-3'>
-                        <p className=' font-semibold'>{transactionId}</p>
+
                         <p className=' font-semibold'>{senderBank}</p>
                         <p className=' text-sm truncate font-semibold'>{`${recipientDetails[0].name}-${recipientDetails[0].accountNumber}`}</p>
+                        <p className=' font-semibold truncate'>{transactionId}</p>
                         <p className=' font-semibold truncate'>{formatAmount(Number(amount))}</p>
                         <p className=' font-semibold truncate'>{formatAmount(CHARGES)}</p>
                         <p className=' font-semibold truncate' >{formatDateToString(currentDate)}</p>

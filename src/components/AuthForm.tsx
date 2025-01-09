@@ -47,30 +47,32 @@ const AuthForm = ({ type }: { type: string }) => {
 
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-
     setIsLoading(true);
 
     const email = data.email;
     const password = data.password;
+
     if (email !== LOGIN.username || password !== LOGIN.password) {
+      // Invalid login case
       setTimeout(() => {
         setIsLoading(false);
-        toast.error("Invalid login details")
-
+        toast.error("Invalid login details");
       }, 5000);
       return null;
     }
 
+    // Correct login case: toggle authentication immediately
+    toggleAuthentication(true);
+
+    // Delay for user feedback, then navigate
     setTimeout(() => {
       setIsLoading(false);
-      toast.success("Logged in Successfully")
-      // Update state after delay
+      toast.success("Logged in Successfully");
       router.push("/account");
-      // Navigate to the receipt page
-    }, 5000);
+    }, 3000);
+  };
 
-    toggleAuthentication(true);
-  }
+
 
   return (
     <section className="auth-form">
