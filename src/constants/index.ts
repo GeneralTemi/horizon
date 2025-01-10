@@ -55,9 +55,15 @@ export const USER = {
 export const ACCOUNTS = [
   {
     id: "1",
-    availableBalance: 20000,
+    availableBalance: 28000,
     officialName: "Angel Don",
     accountName: "Don Savings",
+  },
+  {
+    id: "2",
+    availableBalance: 28000,
+    officialName: "Angel Don",
+    accountName: "Adv Checking",
   },
 ];
 

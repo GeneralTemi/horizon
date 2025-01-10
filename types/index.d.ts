@@ -150,7 +150,7 @@ declare interface PaginationProps {
 declare interface PreviewTransfer {
   amount: string;
   beneficiary: string;
-  name?: string;
+  note?: string;
   senderBank: string;
 }
 

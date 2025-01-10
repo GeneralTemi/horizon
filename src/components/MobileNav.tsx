@@ -25,18 +25,18 @@ const MobileNav = () => {
             width={30}
             height={30}
             alt="menu"
-            className="cursor-pointer"
+            className="cursor-pointer print:hidden"
           />
         </SheetTrigger>
         <SheetContent side="left" className="border-none bg-white">
           <Link href="/" className="cursor-pointer flex items-center gap-1 px-4">
             <Image
-              src="/icons/logo.svg"
-              width={34}
-              height={34}
+              src="https://www.floridacapitalbank.com/wp-content/uploads/2019/08/logo_flcb_main.png"
+              width={150}
+              height={150}
               alt="Horizon logo"
+              className=" print:hidden"
             />
-            <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">FLC</h1>
           </Link>
           <div className="mobilenav-sheet">
             <SheetClose asChild>

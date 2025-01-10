@@ -25,7 +25,7 @@ export default function RootLayout({
 
       <div className="flex size-full flex-col">
         <div className="root-layout">
-          <Image src="/icons/logo.svg" width={30} height={30} alt="logo" />
+          <Image className=" print:hidden" src="https://www.floridacapitalbank.com/wp-content/uploads/2019/08/logo_flcb_main.png" width={150} height={150} alt="logo" />
           <div>
             <MobileNav />
           </div>

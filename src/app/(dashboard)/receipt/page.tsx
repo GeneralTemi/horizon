@@ -5,6 +5,7 @@ import { CHARGES, formatDateToString, USER } from "@/constants";
 import { useAppStore } from "@/constants/store";
 import { formatAmount } from "@/lib/utils";
 import { CheckCircle2, Share2Icon } from "lucide-react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 const ReceiptPage = () => {
@@ -24,8 +25,13 @@ const ReceiptPage = () => {
             <div className=" flex items-center justify-center mt-10 mb-5 w-full">
                 <Card className=" w-full mx-2 xl:mx-72">
                     <CardHeader>
-                        <CardTitle className=" text-blue-600">
-                            FLC Bank
+                        <CardTitle className=" ">
+                            <Image
+                                src="https://www.floridacapitalbank.com/wp-content/uploads/2019/08/logo_flcb_main.png"
+                                width={150}
+                                height={150}
+                                alt="Horizon logo"
+                            />
                         </CardTitle>
 
                         <CardDescription>
@@ -50,6 +56,26 @@ const ReceiptPage = () => {
 
 
                         </div>
+
+                        {
+                            transaction[0].note && (
+                                <div className=" grid grid-cols-2 mt-10 ">
+                                    <div className=" space-y-2">
+                                        <p className=" font-bold text-blue-600">Note</p>
+
+
+                                    </div>
+                                    <div className=" space-y-2">
+                                        <p>{transaction[0].note} </p>
+
+                                    </div>
+
+
+                                </div>
+
+
+                            )
+                        }
                         <div className=" mt-5 flex items-center justify-center text-blue-600 font-bold mb-5">
                             <p className="  "> Amounts </p>
                         </div>
@@ -78,7 +104,7 @@ const ReceiptPage = () => {
                         <div className=" flex items-center justify-center  mt-4">
                             <Button
                                 onClick={() => window.print()}
-                                className=" border rounded-lg  bg-blue-800 text-white">
+                                className=" border rounded-lg  bg-blue-800 text-white print:hidden">
                                 <Share2Icon className=" size-10  mr-3" />
                                 <p className="  text-sm">Share Receipt</p>
                             </Button>

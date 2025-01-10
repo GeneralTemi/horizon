@@ -17,13 +17,12 @@ const Sidebar = () => {
       <nav className="flex flex-col gap-4">
         <Link href="/" className="mb-12 cursor-pointer flex items-center gap-2">
           <Image
-            src="/icons/logo.svg"
-            width={34}
-            height={34}
+            src="https://www.floridacapitalbank.com/wp-content/uploads/2019/08/logo_flcb_main.png"
+            width={150}
+            height={150}
             alt="Horizon logo"
-            className="size-[24px] max-xl:size-14"
+            className=" print:hidden"
           />
-          <h1 className="sidebar-logo">FLC</h1>
         </Link>
 
         {sidebarLinks.map((item) => {

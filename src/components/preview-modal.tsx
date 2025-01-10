@@ -14,7 +14,7 @@ export const PreviewModal = () => {
             {
                 modalData && (
                     <div >
-                        <PreviewPopup amount={modalData?.amount} beneficiary={modalData?.beneficiary} name={modalData?.name} senderBank={modalData?.senderBank} />
+                        <PreviewPopup amount={modalData?.amount} beneficiary={modalData?.beneficiary} note={modalData?.name} senderBank={modalData?.senderBank} />
                     </div>
 
                 )

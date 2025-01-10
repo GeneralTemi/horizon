@@ -73,7 +73,7 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
                       From
                     </FormLabel>
                     <FormDescription className="text-12 font-normal text-gray-600">
-                      Select Source Bank
+                      Select source account
                     </FormDescription>
                   </div>
                   <div className="flex w-full flex-col">

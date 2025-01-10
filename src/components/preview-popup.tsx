@@ -16,7 +16,7 @@ import useModalStore from '@/hooks/use-modal-store'
 
 
 
-export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfer) => {
+export const PreviewPopup = ({ amount, beneficiary, senderBank, note }: PreviewTransfer) => {
 
     const [pin, setPin] = useState(false)
     const [isPending, setIsPending] = useState(false)
@@ -79,7 +79,7 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank }: PreviewTransfe
             availableBalance: newBalance,
             transactionId: transactionId,
             accountName: accountName,
-            Note: "",
+            note: note ? note : "",
         };
 
         addTransaction(newTransaction);
