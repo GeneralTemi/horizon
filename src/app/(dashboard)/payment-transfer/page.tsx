@@ -11,7 +11,7 @@ const Transfer = () => {
   return (
     <section className="payment-transfer">
       <HeaderBox
-        title="Make a Transfer"
+        title="Make a wire Transfer"
         subtext=""
       />
 

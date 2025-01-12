@@ -1,7 +1,7 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { cn, formatAmount } from '@/lib/utils'
-import { BENEFICIARIES, CHARGES, formatDateToString, generateRandomId, generateTransactionId, MYPIN } from '@/constants'
+import { BENEFICIARIES, calculateArrivalDate, CHARGES, formatDateToString, generateRandomId, generateTransactionId, MYPIN } from '@/constants'
 import { Separator } from './ui/separator'
 import { LoaderIcon } from 'lucide-react'
 import { Button } from './ui/button'
@@ -148,7 +148,7 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank, note }: PreviewT
             </CardHeader>
             <CardContent>
                 <div className='grid grid-cols-2 justify-between '>
-                    <div className=' space-y-3'>
+                    <div className=' space-y-6'>
 
                         <p className=' font-bold'>From</p>
                         <p className=' font-bold'>To</p>
@@ -158,15 +158,15 @@ export const PreviewPopup = ({ amount, beneficiary, senderBank, note }: PreviewT
                         <p className=' font-bold'>Transaction date</p>
                         <p className=' font-bold'>Arrival date</p>
                     </div>
-                    <div className=' text-end space-y-3'>
+                    <div className=' text-end space-y-6'>
 
-                        <p className=' font-semibold'>{senderBank}</p>
+                        <p className=' font-semibold truncate'>{senderBank}</p>
                         <p className=' text-sm truncate font-semibold'>{`${recipientDetails[0].name}-${recipientDetails[0].accountNumber}`}</p>
                         <p className=' font-semibold truncate'>{transactionId}</p>
                         <p className=' font-semibold truncate'>{formatAmount(Number(amount))}</p>
                         <p className=' font-semibold truncate'>{formatAmount(CHARGES)}</p>
                         <p className=' font-semibold truncate' >{formatDateToString(currentDate)}</p>
-                        <p className=' font-semibold truncate'>{formatDateToString(currentDate)}</p>
+                        <p className=' font-semibold truncate'>{formatDateToString(calculateArrivalDate(currentDate))}</p>
                     </div>
                 </div>
                 <Separator orientation='horizontal' className='my-4' />

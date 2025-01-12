@@ -250,6 +250,12 @@ export const TRANSACTIONS = [
   },
 ];
 
+export function calculateArrivalDate(currentDate: Date): Date {
+  const arrivalDate = new Date(currentDate); // Copy the current date
+  arrivalDate.setHours(arrivalDate.getHours() + 24); // Add 24 hours
+  return arrivalDate;
+}
+
 export function generateRandomId(length: number): string {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

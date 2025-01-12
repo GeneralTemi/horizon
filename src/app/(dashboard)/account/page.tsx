@@ -24,7 +24,7 @@ const Home = () => {
   const getRecentTransactions = (transactions: Transaction[]): Transaction[] => {
     return transactions
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 2);
+      .slice(0, 4);
   };
 
   const recentTransaction = getRecentTransactions(transactions);
