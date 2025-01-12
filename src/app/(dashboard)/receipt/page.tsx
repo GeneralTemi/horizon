@@ -34,8 +34,9 @@ const ReceiptPage = () => {
                             />
                         </CardTitle>
 
-                        <CardDescription>
-                            POBox 12345
+                        <CardDescription className="mt-5">
+                            <p> 10151 Deerwood Park Blvd.,<br /> Building 100, Suite 200, Jacksonville, FL 32256 </p>
+                            <p>PoBox: 551390</p>
                         </CardDescription>
                     </CardHeader>
 

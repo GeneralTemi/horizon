@@ -2,10 +2,12 @@
 import HeaderBox from '@/components/HeaderBox'
 
 import TransactionsTable from '@/components/TransactionsTable';
+import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/constants/store';
 
 import { formatAmount } from '@/lib/utils';
 import React from 'react'
+import { toast } from 'sonner';
 
 const TransactionHistory = () => {
 
@@ -42,6 +44,20 @@ const TransactionHistory = () => {
           <TransactionsTable
             transactions={transactions}
           />
+          <Button
+            onClick={() =>
+              toast("Error Loading Transactions", {
+                description: "Cant load transaction beyond a certain period",
+                action: {
+                  label: "Undo",
+                  onClick: () => console.log("Undo"),
+                },
+              })
+            }
+            variant="outline"
+            className=' ml-auto'>
+            View more transactions
+          </Button>
           {/* {totalPages > 1 && (
             <div className="my-4 w-full">
               <Pagination totalPages={totalPages} page={currentPage} />

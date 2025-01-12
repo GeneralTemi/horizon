@@ -1,10 +1,20 @@
+"use client"
+
 import Image from "next/image";
+
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+  // const { isAuthenticated } = useAppStore();
+
+  // if (isAuthenticated) {
+  //   redirect("/account")
+  // }
   return (
     <main className="flex min-h-screen w-full justify-between font-inter">
       {children}

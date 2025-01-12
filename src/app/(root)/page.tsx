@@ -1,11 +1,15 @@
-export default function HtmlIframePage() {
+// import fs from 'fs';
+// import path from 'path';
+
+export default async function RenderHtmlPage() {
+    // Read the HTML file
+    // const filePath = path.join(process.cwd(), 'public', 'hom.html');
+    // const htmlContent = fs.readFileSync(filePath, 'utf8');
+
     return (
         <div>
-
-            <iframe
-                src="/hom.html"
-                style={{ width: '100%', height: '100vh', border: 'none' }}
-            ></iframe>
+            {/* <div dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
+            <p>Home</p>
         </div>
     );
 }
