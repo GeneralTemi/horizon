@@ -281,7 +281,7 @@ export function generateTransactionId(): string {
 export const TEST_USER_ID = "6627ed3d00267aa6fa3e";
 
 export const CHARGES = 30;
-export const MYPIN = "1234";
+export const MYPIN = "5392";
 
 // custom_user -> Chase Bank
 // export const TEST_ACCESS_TOKEN =
